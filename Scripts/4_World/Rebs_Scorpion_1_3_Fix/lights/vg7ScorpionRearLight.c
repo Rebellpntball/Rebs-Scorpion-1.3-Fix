@@ -1,21 +1,20 @@
-// Matching warm rear light (brake / reverse) – optional but recommended
-class vg7ScorpionRearLight extends CarRearLightBase
+// Unique class name so we do NOT collide with any original rear light class
+class RebsScorpionRearLight extends CarRearLightBase
 {
-	void vg7ScorpionRearLight()
+	void RebsScorpionRearLight()
 	{
-		// Brake light – classic red
+		// Brake – classic red
 		m_SegregatedBrakeBrightness = 1.0;
 		m_SegregatedBrakeRadius = 8;
 		m_SegregatedBrakeAngle = 160;
 		m_SegregatedBrakeColorRGB = Vector(1.0, 0.05, 0.05);
 
-		// Reverse light – warm white / slight yellow
+		// Reverse – warm white / slight yellow
 		m_SegregatedBrightness = 1.2;
 		m_SegregatedRadius = 12;
 		m_SegregatedAngle = 140;
 		m_SegregatedColorRGB = Vector(1.0, 0.9, 0.7);
 
-		// Aggregated values
 		m_AggregatedBrakeBrightness = 1.2;
 		m_AggregatedBrakeRadius = 10;
 		m_AggregatedBrakeAngle = 170;
