@@ -2,67 +2,54 @@
 
 **Proper compatibility override** for the **BLACKOUTS / vg7_scorpion** motorcycle mod.
 
-- Works on **DayZ 1.29** (stable + Road to Badlands)
-- Safe for **DayZ 1.30** Experimental / Badlands
-- Does **not** edit the original mod – pure `modded class` + config overrides
+- DayZ **1.29** ready, safe for **1.30**
+- Override only – does not edit the original mod
 
-Original authors: VectorG7, DrBlackouts, DeanosBeano  
-Compatibility: Rebs
-
----
-
-## What this fix does
-
-### 1.29 physics sleep
-`SetRequiredSimulation(true)` while engine on or smoke active so exhaust/smoke particles keep working.
-
-### Retro 80s yellow headlights
-Unique light classes (`RebsScorpionFrontLight` / `RebsScorpionRearLight`) – no name clash with original.
-
-### Handling pass (Fat Boy inspired)
-Config override on `vg7_scorpion` SimulationModule:
-
-| Change | From → To | Feel |
-|--------|-----------|------|
-| Engine inertia | 0.85 → **0.45** | Snappier throttle |
-| Drag | 0.56 → **0.40** | Less air wall |
-| defaultThrust | 0.95 → **0.75** | Less twitchy |
-| turboCoef | 4.0 → **3.6** | Softer boost spike |
-| Rear suspension stiffness | ~35000 → **24000** | Less skatey rear |
-| Downforce | none → **0.6** | More planted |
-
-Still a Scorpion – not a full Fat Boy clone.
-
-### New colour: `vg7_scorpion_Rebs_Princess`
-**Procedural mix** of original textures only (no new .paa):
-
-- **Tank:** Ace of Spades (`GasTank_Ace_CA`) – royal look
-- **Frame / fender / forks / grips:** Pink (`Mainbody_Pink_CA` + pink materials)
-- **Seat:** Ace body texture + standard seat material
-
-Spawn name: `vg7_scorpion_Rebs_Princess`
-
-There is **no purple tank** in the original pack. Closest “royal” tank is Ace. If you later add a purple `.paa`, we only need to point the tank slot at it.
+Original: VectorG7 / DrBlackouts / DeanosBeano  
+Compatibility + colours: Rebs
 
 ---
 
-## Installation
+## Features
 
-1. Keep the **original vg7_scorpion** mod installed.
-2. Pack this folder / clone the repo as a normal DayZ mod.
-3. Load order:
+### 1.29 physics sleep fix
+Keeps simulation alive for exhaust / smoke while engine on or smoke active.
+
+### Retro yellow headlights
+`RebsScorpionFrontLight` / `RebsScorpionRearLight` (unique names, no clash).
+
+### Handling pass
+Lower inertia, lower drag, softer rear, tamer throttle – Fat Boy inspired, still a Scorpion.
+
+### Procedural colour variants
+Same method as your FDZ shemaghs: `#(argb,8,8,3)color(R,G,B,1,CO)`
+
+| Class | Look |
+|-------|------|
+| `vg7_scorpion_Rebs_Princess` | **Royal Crown Purple** tank + original **pink** frame |
+| `vg7_scorpion_Rebs_BlueBlood` | Full deep blue `(0.05,0.16,0.42)` |
+| `vg7_scorpion_Rebs_CyberBlue` | Full cyber blue `(0.02,0.45,0.85)` |
+| `vg7_scorpion_Rebs_ArmyGreen` | Full army green `(0.24,0.30,0.16)` |
+| `vg7_scorpion_Rebs_AshGrunge` | Full ash/charcoal `(0.18,0.18,0.18)` |
+| `vg7_scorpion_Rebs_RustGrunge` | Full rust brown `(0.36,0.14,0.05)` |
+
+**Note:** Procedural colours are solid fills. You lose original tank art / logos / wear maps on those slots, but you get exact brand colours with zero extra textures.
+
+Princess keeps original pink body `.paa` on the frame so it still has some detail.
+
+---
+
+## Install
 
 ```
 … ; vg7_scorpion ; Rebs_Scorpion_1_3_Fix
 ```
 
-4. Optional on 1.30: whitelist Scorpion class names for 3PP if your server uses one.
-
-No types.xml required for the fix itself. Add `vg7_scorpion_Rebs_Princess` to your economy / types if you want it to spawn or be craftable.
+Add the new classnames to types / economy if you want them to spawn.
 
 ---
 
 ## Credits
 
-- Original Scorpion – VectorG7, DrBlackouts, DeanosBeano  
-- Override / 1.29–1.30 / handling / Princess mix – Rebs
+Original Scorpion – VectorG7, DrBlackouts, DeanosBeano  
+Override / handling / procedural paints – Rebs

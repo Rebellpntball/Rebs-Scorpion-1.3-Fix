@@ -4,7 +4,12 @@ class CfgPatches
 	{
 		units[] =
 		{
-			"vg7_scorpion_Rebs_Princess"
+			"vg7_scorpion_Rebs_Princess",
+			"vg7_scorpion_Rebs_BlueBlood",
+			"vg7_scorpion_Rebs_CyberBlue",
+			"vg7_scorpion_Rebs_ArmyGreen",
+			"vg7_scorpion_Rebs_AshGrunge",
+			"vg7_scorpion_Rebs_RustGrunge"
 		};
 		weapons[] = {};
 		requiredVersion = 0.1;
@@ -32,7 +37,7 @@ class CfgMods
 		credits = "Original: VectorG7 / DrBlackouts / DeanosBeano | Compatibility: Rebs";
 		author = "Rebs";
 		authorID = "0";
-		version = "1.3.1";
+		version = "1.3.2";
 		extra = 0;
 		type = "mod";
 		dependencies[] = {"Game", "World", "Mission"};
@@ -59,7 +64,9 @@ class CfgMods
 };
 
 // -------------------------------------------------------------
-// Handling + new mixed-texture colour variant
+// Handling + procedural colour variants
+// Procedural textures use the same #(argb,8,8,3)color(...) form
+// as your FDZ shemaghs – solid colour, no extra .paa needed.
 // -------------------------------------------------------------
 class CfgVehicles
 {
@@ -67,12 +74,6 @@ class CfgVehicles
 	class vg7_scorpion: CarScript
 	{
 		// Mild Fat-Boy inspired handling pass (keeps Scorpion identity).
-		// Changes vs original:
-		// - lower engine inertia (0.85 -> 0.45) = snappier throttle
-		// - lower drag (0.56 -> 0.40) = less air wall at speed
-		// - tamer defaultThrust / turboCoef = less twitchy
-		// - softer rear suspension = less skatey rear
-		// - slight downforce for planted feel
 		class SimulationModule
 		{
 			class Steering
@@ -166,48 +167,29 @@ class CfgVehicles
 		};
 	};
 
+	// Shared selection list for all procedural variants
+	// 0-8 lights | 9 tank | 10 rearfender | 11 forks | 12-13 frame | 14 seat | 15 grips
+
 	// -----------------------------------------------------------------
-	// Procedural mix: Ace (royal) gas tank + pink frame / body / grips
-	// Uses ONLY textures that already ship with the original Scorpion mod.
-	// No new .paa required.
+	// PRINCESS – Royal Crown Purple tank + pink frame (original pink paa)
+	// Purple RGB matches your FDZ_Shemagh_RoyalCrownPurple
 	// -----------------------------------------------------------------
 	class vg7_scorpion_Rebs_Princess: vg7_scorpion
 	{
 		scope = 2;
 		displayName = "BLACKOUTS SCORPION REBS PRINCESS";
-		descriptionShort = "Royal Ace tank on a pink frame. Mix-and-match from original paints.";
+		descriptionShort = "Royal Crown Purple tank on a pink frame. Procedural + original mix.";
 		hiddenSelections[] =
 		{
-			"light_1_1",
-			"light_2_1",
-			"light_brake_1_2",
-			"light_brake_2_2",
-			"light_reverse_1_2",
-			"light_reverse_2_2",
-			"light_1_2",
-			"light_2_2",
-			"light_dashboard",
-			"tankpaint",
-			"rearfender",
-			"forks_front_rot",
-			"FrameAssembly.001",
-			"FrameAssembly.002",
-			"Seat",
-			"ForkAssemblyGrips"
+			"light_1_1","light_2_1","light_brake_1_2","light_brake_2_2",
+			"light_reverse_1_2","light_reverse_2_2","light_1_2","light_2_2","light_dashboard",
+			"tankpaint","rearfender","forks_front_rot",
+			"FrameAssembly.001","FrameAssembly.002","Seat","ForkAssemblyGrips"
 		};
-		// 0-8 lights empty | 9 tank (Ace royal) | 10-13 pink body | 14 seat Ace | 15 pink grips
 		hiddenSelectionsTextures[] =
 		{
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"vg7_scorpion\\vg7_scorpion\\data\\GasTank_Ace_CA.paa",
+			"","","","","","","","","",
+			"#(argb,8,8,3)color(0.32,0.05,0.48,1,CO)",
 			"vg7_scorpion\\vg7_scorpion\\data\\Mainbody_Pink_CA.paa",
 			"vg7_scorpion\\vg7_scorpion\\data\\Mainbody_Pink_CA.paa",
 			"vg7_scorpion\\vg7_scorpion\\data\\Mainbody_Pink_CA.paa",
@@ -233,6 +215,146 @@ class CfgVehicles
 			"vg7_scorpion\\vg7_scorpion\\data\\tankscratchmetalpink.rvmat",
 			"vg7_scorpion\\vg7_scorpion\\data\\seat.rvmat",
 			"vg7_scorpion\\vg7_scorpion\\data\\seat_pink.rvmat"
+		};
+	};
+
+	// -----------------------------------------------------------------
+	// BLUE BLOOD – full procedural body (your shemagh blue)
+	// -----------------------------------------------------------------
+	class vg7_scorpion_Rebs_BlueBlood: vg7_scorpion
+	{
+		scope = 2;
+		displayName = "BLACKOUTS SCORPION REBS BLUE BLOOD";
+		descriptionShort = "Deep blue procedural paint. Same RGB as FDZ Blue Blood shemagh.";
+		hiddenSelections[] =
+		{
+			"light_1_1","light_2_1","light_brake_1_2","light_brake_2_2",
+			"light_reverse_1_2","light_reverse_2_2","light_1_2","light_2_2","light_dashboard",
+			"tankpaint","rearfender","forks_front_rot",
+			"FrameAssembly.001","FrameAssembly.002","Seat","ForkAssemblyGrips"
+		};
+		hiddenSelectionsTextures[] =
+		{
+			"","","","","","","","","",
+			"#(argb,8,8,3)color(0.05,0.16,0.42,1,CO)",
+			"#(argb,8,8,3)color(0.05,0.16,0.42,1,CO)",
+			"#(argb,8,8,3)color(0.05,0.16,0.42,1,CO)",
+			"#(argb,8,8,3)color(0.05,0.16,0.42,1,CO)",
+			"#(argb,8,8,3)color(0.05,0.16,0.42,1,CO)",
+			"#(argb,8,8,3)color(0.08,0.08,0.10,1,CO)",
+			"#(argb,8,8,3)color(0.05,0.16,0.42,1,CO)"
+		};
+	};
+
+	// -----------------------------------------------------------------
+	// CYBER BLUE
+	// -----------------------------------------------------------------
+	class vg7_scorpion_Rebs_CyberBlue: vg7_scorpion
+	{
+		scope = 2;
+		displayName = "BLACKOUTS SCORPION REBS CYBER BLUE";
+		descriptionShort = "Bright cyber blue procedural paint.";
+		hiddenSelections[] =
+		{
+			"light_1_1","light_2_1","light_brake_1_2","light_brake_2_2",
+			"light_reverse_1_2","light_reverse_2_2","light_1_2","light_2_2","light_dashboard",
+			"tankpaint","rearfender","forks_front_rot",
+			"FrameAssembly.001","FrameAssembly.002","Seat","ForkAssemblyGrips"
+		};
+		hiddenSelectionsTextures[] =
+		{
+			"","","","","","","","","",
+			"#(argb,8,8,3)color(0.02,0.45,0.85,1,CO)",
+			"#(argb,8,8,3)color(0.02,0.45,0.85,1,CO)",
+			"#(argb,8,8,3)color(0.02,0.45,0.85,1,CO)",
+			"#(argb,8,8,3)color(0.02,0.45,0.85,1,CO)",
+			"#(argb,8,8,3)color(0.02,0.45,0.85,1,CO)",
+			"#(argb,8,8,3)color(0.05,0.05,0.08,1,CO)",
+			"#(argb,8,8,3)color(0.02,0.45,0.85,1,CO)"
+		};
+	};
+
+	// -----------------------------------------------------------------
+	// ARMY GREEN
+	// -----------------------------------------------------------------
+	class vg7_scorpion_Rebs_ArmyGreen: vg7_scorpion
+	{
+		scope = 2;
+		displayName = "BLACKOUTS SCORPION REBS ARMY GREEN";
+		descriptionShort = "Army green procedural paint.";
+		hiddenSelections[] =
+		{
+			"light_1_1","light_2_1","light_brake_1_2","light_brake_2_2",
+			"light_reverse_1_2","light_reverse_2_2","light_1_2","light_2_2","light_dashboard",
+			"tankpaint","rearfender","forks_front_rot",
+			"FrameAssembly.001","FrameAssembly.002","Seat","ForkAssemblyGrips"
+		};
+		hiddenSelectionsTextures[] =
+		{
+			"","","","","","","","","",
+			"#(argb,8,8,3)color(0.24,0.30,0.16,1,CO)",
+			"#(argb,8,8,3)color(0.24,0.30,0.16,1,CO)",
+			"#(argb,8,8,3)color(0.24,0.30,0.16,1,CO)",
+			"#(argb,8,8,3)color(0.24,0.30,0.16,1,CO)",
+			"#(argb,8,8,3)color(0.24,0.30,0.16,1,CO)",
+			"#(argb,8,8,3)color(0.12,0.12,0.10,1,CO)",
+			"#(argb,8,8,3)color(0.24,0.30,0.16,1,CO)"
+		};
+	};
+
+	// -----------------------------------------------------------------
+	// ASH GRUNGE
+	// -----------------------------------------------------------------
+	class vg7_scorpion_Rebs_AshGrunge: vg7_scorpion
+	{
+		scope = 2;
+		displayName = "BLACKOUTS SCORPION REBS ASH GRUNGE";
+		descriptionShort = "Ash / charcoal procedural paint.";
+		hiddenSelections[] =
+		{
+			"light_1_1","light_2_1","light_brake_1_2","light_brake_2_2",
+			"light_reverse_1_2","light_reverse_2_2","light_1_2","light_2_2","light_dashboard",
+			"tankpaint","rearfender","forks_front_rot",
+			"FrameAssembly.001","FrameAssembly.002","Seat","ForkAssemblyGrips"
+		};
+		hiddenSelectionsTextures[] =
+		{
+			"","","","","","","","","",
+			"#(argb,8,8,3)color(0.18,0.18,0.18,1,CO)",
+			"#(argb,8,8,3)color(0.18,0.18,0.18,1,CO)",
+			"#(argb,8,8,3)color(0.18,0.18,0.18,1,CO)",
+			"#(argb,8,8,3)color(0.18,0.18,0.18,1,CO)",
+			"#(argb,8,8,3)color(0.18,0.18,0.18,1,CO)",
+			"#(argb,8,8,3)color(0.10,0.10,0.10,1,CO)",
+			"#(argb,8,8,3)color(0.18,0.18,0.18,1,CO)"
+		};
+	};
+
+	// -----------------------------------------------------------------
+	// RUST GRUNGE
+	// -----------------------------------------------------------------
+	class vg7_scorpion_Rebs_RustGrunge: vg7_scorpion
+	{
+		scope = 2;
+		displayName = "BLACKOUTS SCORPION REBS RUST GRUNGE";
+		descriptionShort = "Rust brown procedural paint.";
+		hiddenSelections[] =
+		{
+			"light_1_1","light_2_1","light_brake_1_2","light_brake_2_2",
+			"light_reverse_1_2","light_reverse_2_2","light_1_2","light_2_2","light_dashboard",
+			"tankpaint","rearfender","forks_front_rot",
+			"FrameAssembly.001","FrameAssembly.002","Seat","ForkAssemblyGrips"
+		};
+		hiddenSelectionsTextures[] =
+		{
+			"","","","","","","","","",
+			"#(argb,8,8,3)color(0.36,0.14,0.05,1,CO)",
+			"#(argb,8,8,3)color(0.36,0.14,0.05,1,CO)",
+			"#(argb,8,8,3)color(0.36,0.14,0.05,1,CO)",
+			"#(argb,8,8,3)color(0.36,0.14,0.05,1,CO)",
+			"#(argb,8,8,3)color(0.36,0.14,0.05,1,CO)",
+			"#(argb,8,8,3)color(0.12,0.10,0.08,1,CO)",
+			"#(argb,8,8,3)color(0.36,0.14,0.05,1,CO)"
 		};
 	};
 };
