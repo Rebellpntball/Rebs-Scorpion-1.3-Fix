@@ -52,7 +52,7 @@ class CfgMods
 		credits = "Original: VectorG7 / DrBlackouts / DeanosBeano | Compatibility + paints: Rebs";
 		author = "Rebs";
 		authorID = "0";
-		version = "1.3.4";
+		version = "1.3.5";
 		extra = 0;
 		type = "mod";
 		dependencies[] = {"Game","World","Mission"};
@@ -67,19 +67,27 @@ class CfgMods
 
 class CfgVehicles
 {
+	// Forward-declare so we can inherit (same pattern as Truck_01_Improvements / MBM_RamRebel_128Fix)
 	class CarScript;
+	class SimulationModule;
+	class Throttle;
+	class Brake;
+	class Aerodynamics;
+	class Engine;
+	class Clutch;
+	class Gearbox;
+	class Axles;
+	class Front;
+	class Rear;
+	class Suspension;
+
+	// HANDLING ONLY – inherit original SimulationModule / Axles / Wheels
+	// Do NOT redefine Wheels or full Axles (would wipe wheel slots).
 	class vg7_scorpion: CarScript
 	{
-		class SimulationModule
+		class SimulationModule: SimulationModule
 		{
-			class Steering
-			{
-				maxSteeringAngle = 36;
-				increaseSpeed[] = {0,45,60,25,100,10};
-				decreaseSpeed[] = {0,80,60,40,100,15};
-				centeringSpeed[] = {0,0,15,25,60,40,100,60};
-			};
-			class Throttle
+			class Throttle: Throttle
 			{
 				reactionTime = 0.85;
 				defaultThrust = 0.75;
@@ -87,76 +95,46 @@ class CfgVehicles
 				turboCoef = 3.6;
 				gentleCoef = 0.75;
 			};
-			class Brake
-			{
-				pressureBySpeed[] = {0,0.9,10,0.75,20,0.6,40,0.5,60,0.38,80,0.32,100,0.28,120,0.24,140,0.2};
-				reactionTime = 0.15;
-				driverless = 0.1;
-			};
-			class Aerodynamics
+			class Aerodynamics: Aerodynamics
 			{
 				frontalArea = 2.15;
 				dragCoefficient = 0.40;
 				downforceCoefficient = 0.6;
 				downforceOffset[] = {0,0.35,-1.8};
 			};
-			drive = "DRIVE_AWD";
-			class Engine
+			// Only tweak response – keep original torqueCurve / rpm from base mod
+			class Engine: Engine
 			{
-				torqueCurve[] = {650,0,750,230,1400,260,3400,280,5400,260,8000,0};
 				inertia = 0.45;
-				frictionTorque = 100;
 				rollingFriction = 1.9;
 				viscousFriction = 1.1;
-				rpmIdle = 850;
-				rpmMin = 900;
-				rpmClutch = 1500;
-				rpmRedline = 6500;
+				frictionTorque = 100;
 			};
-			class Clutch
+			class Clutch: Clutch
 			{
 				maxTorqueTransfer = 280;
 				uncoupleTime = 0.25;
 				coupleTime = 0.25;
 			};
-			class Gearbox
+			// Inherit Axles so Wheels / differentials / inventory slots stay intact
+			class Axles: Axles
 			{
-				type = "GEARBOX_MANUAL";
-				reverse = 0.75;
-				ratios[] = {3.6,2.35,1.55,1.05};
-			};
-			class Axles
-			{
-				class Front
+				class Front: Front
 				{
-					maxBrakeTorque = 3600;
-					maxHandbrakeTorque = 4800;
-					wheelHubMass = 5;
-					wheelHubRadius = 0.15;
-					class Suspension
+					class Suspension: Suspension
 					{
-						swayBar = 2200;
 						stiffness = 27000;
 						compression = 3200;
 						damping = 6200;
-						travelMaxUp = 0.16;
-						travelMaxDown = 0.15;
 					};
 				};
-				class Rear
+				class Rear: Rear
 				{
-					maxBrakeTorque = 2900;
-					maxHandbrakeTorque = 5000;
-					wheelHubMass = 5;
-					wheelHubRadius = 0.15;
-					class Suspension
+					class Suspension: Suspension
 					{
-						swayBar = 2000;
 						stiffness = 24000;
 						compression = 3000;
 						damping = 6000;
-						travelMaxUp = 0.15;
-						travelMaxDown = 0.14;
 					};
 				};
 			};
@@ -164,7 +142,6 @@ class CfgVehicles
 	};
 
 	// REBS SIGNATURE – Blood Ace (Ace tank/seat/forks, blood-red frame, black grips)
-	// Does NOT collide with OG: vg7_scorpion_ace / ace_rust / easyrider / etc.
 	class vg7_scorpion_Rebs_BloodAce: vg7_scorpion
 	{
 		scope = 2;
